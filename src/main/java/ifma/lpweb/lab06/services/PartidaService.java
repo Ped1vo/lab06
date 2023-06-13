@@ -1,13 +1,14 @@
 package ifma.lpweb.lab06.services;
 
+import ifma.lpweb.lab06.repositories.PartidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PartidaService {
-    private final PartidaService partidaService;
+    private final PartidaRepository partidaRepository;
     @Autowired
-    public PartidaService(PartidaService partidaService){
-        this.partidaService = partidaService;
+    public PartidaService(PartidaRepository partidaRepository) {
+        this.partidaRepository = partidaRepository;
     }
 }
