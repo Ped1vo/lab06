@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -13,16 +12,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_jogador")
-public class Jogador {
+@Table(name = "tb_estadio")
+public class Estadio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idJogador;
+    private UUID idEstadio;
     private String nome;
-    private LocalDate nascimento;
-    private String genero;
-    private double altura;
-    @ManyToOne
+    private String endereco;
+    @OneToOne
     private Time time;
 
 }

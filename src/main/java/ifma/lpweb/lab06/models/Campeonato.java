@@ -3,7 +3,7 @@ package ifma.lpweb.lab06.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -13,16 +13,13 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_jogador")
-public class Jogador {
+@Table(name = "tb_campeonato")
+public class Campeonato {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idJogador;
+    private UUID idCampeonato;
+    private int ano;
     private String nome;
-    private LocalDate nascimento;
-    private String genero;
-    private double altura;
-    @ManyToOne
-    private Time time;
-
+    @OneToMany(mappedBy = "campeonato")
+    private List<Partida> partidas;
 }

@@ -13,16 +13,15 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_jogador")
-public class Jogador {
+@Table(name = "tb_partida")
+public class Partida {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idJogador;
-    private String nome;
-    private LocalDate nascimento;
-    private String genero;
-    private double altura;
+    private UUID idPartida;
+    private LocalDate data;
     @ManyToOne
     private Time time;
+    @ManyToOne
+    private Campeonato campeonato;
 
 }
