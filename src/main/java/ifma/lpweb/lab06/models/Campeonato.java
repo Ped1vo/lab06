@@ -3,6 +3,7 @@ package ifma.lpweb.lab06.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +15,8 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "tb_campeonato")
-public class Campeonato {
+public class Campeonato implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idCampeonato;
