@@ -11,7 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,31 +24,29 @@ public class JogadorController {
     private final JogadorService jogadorService;
 
     @PostMapping
-    public ResponseEntity<Jogador> cadastrar(@Valid @RequestBody Jogador jogador) {
-        final var jogadorCadastrado = jogadorService.cadastrar(jogador);
-        return ResponseEntity.ok((Jogador) jogadorCadastrado);
+    public ResponseEntity<Jogador> cadastrar(@Valid @RequestBody Jogador jogador,
+                                             UriComponentsBuilder builder) {
+        final Object jogadorSalvo = jogadorService.cadastrar(jogador);
+        final URI uri = builder.path("/jogadores/{idJogador}").buildAndExpand(jogador.getIdJogador()).toUri();
+        return ResponseEntity.created(uri).body((Jogador) jogadorSalvo);
     }
 
     @GetMapping("/{idJogador}")
     public ResponseEntity<Jogador> buscarPorId(@PathVariable UUID idJogador) {
-        Optional<Jogador> jogadorOptional = jogadorService.buscarPorId(idJogador);
-        if (jogadorOptional.isPresent()) {
-            Jogador jogador = jogadorOptional.get();
-            return ResponseEntity.ok(jogador);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return jogadorService.buscarPorId(idJogador)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 
     @PutMapping("/{idJogador}")
     public ResponseEntity<Jogador> atualizar(@PathVariable UUID idJogador, @Valid @RequestBody Jogador jogador) {
-        Optional<Jogador> jogadorOptional = jogadorService.buscarPorId(idJogador);
-        if (jogadorOptional.isPresent()) {
+        if(jogadorService.naoExisteJogadorCom(idJogador)) {
+            return ResponseEntity.notFound().build();
+        }else {
+            jogador.setIdJogador(idJogador);
             Jogador jogadorAtualizado = jogadorService.atualizar(jogador);
             return ResponseEntity.ok(jogadorAtualizado);
-        } else {
-            return ResponseEntity.notFound().build();
         }
     }
 
@@ -55,7 +55,7 @@ public class JogadorController {
         Optional<Jogador> jogadorOptional = jogadorService.buscarPorId(idJogador);
         if (jogadorOptional.isPresent()) {
             jogadorService.deletar(idJogador);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

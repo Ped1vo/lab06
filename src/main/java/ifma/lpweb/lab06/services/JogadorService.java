@@ -54,4 +54,8 @@ public class JogadorService{
     public Page<Jogador> listarPorNome(String nome, Pageable paginacao) {
         return jogadorRepository.findByNomeContaining(nome, paginacao);
     }
+
+    public boolean naoExisteJogadorCom(UUID idJogador) {
+        return !jogadorRepository.existsById(idJogador);
+    }
 }
