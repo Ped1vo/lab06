@@ -1,6 +1,7 @@
 package ifma.lpweb.lab06.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class Time implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idTime;
+    @NotBlank
     private String nome;
     @OneToMany(mappedBy = "time")
     private List<Jogador> jogador;

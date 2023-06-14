@@ -1,6 +1,9 @@
 package ifma.lpweb.lab06.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
@@ -19,7 +22,9 @@ public class Estadio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idEstadio;
+    @NotBlank @Size(min = 3, max = 50)
     private String nome;
+    @NotNull
     private String endereco;
     @OneToOne
     private Time time;
