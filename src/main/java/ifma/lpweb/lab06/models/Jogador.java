@@ -9,11 +9,11 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @Getter
 @Setter
@@ -21,9 +21,10 @@ import java.util.UUID;
 @Table(name = "tb_jogador")
 public class Jogador implements Serializable {
     private static final long serialVersionUID = 1L;
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idJogador;
+    private Long idJogador;
     @NotBlank @Size(min = 3, max = 50)
     private String nome;
     @NotNull

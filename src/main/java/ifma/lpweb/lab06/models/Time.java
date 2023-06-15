@@ -12,15 +12,17 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
 @Entity
 @Table(name = "tb_time")
 public class Time implements Serializable {
     private static final long serialVersionUID = 1L;
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idTime;
+    private Long idTime;
     @NotBlank
     private String nome;
     @OneToMany(mappedBy = "time")

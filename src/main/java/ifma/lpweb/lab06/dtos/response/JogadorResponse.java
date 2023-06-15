@@ -1,14 +1,13 @@
-package ifma.lpweb.lab06.dtos.output;
+package ifma.lpweb.lab06.dtos.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 public class JogadorResponse {
-    private UUID idJogador;
+    private Long idJogador;
     private String nome;
     private String nascimento;
     private String genero;

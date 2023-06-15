@@ -32,7 +32,7 @@ public class JogadorController {
     }
 
     @GetMapping("/{idJogador}")
-    public ResponseEntity<Jogador> buscarPorId(@PathVariable UUID idJogador) {
+    public ResponseEntity<Jogador> buscarPorId(@PathVariable Long idJogador) {
         return jogadorService.buscarPorId(idJogador)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -40,7 +40,7 @@ public class JogadorController {
 
 
     @PutMapping("/{idJogador}")
-    public ResponseEntity<Jogador> atualizar(@PathVariable UUID idJogador, @Valid @RequestBody Jogador jogador) {
+    public ResponseEntity<Jogador> atualizar(@PathVariable Long idJogador, @Valid @RequestBody Jogador jogador) {
         if(jogadorService.naoExisteJogadorCom(idJogador)) {
             return ResponseEntity.notFound().build();
         }else {
@@ -51,7 +51,7 @@ public class JogadorController {
     }
 
     @DeleteMapping("/{idJogador}")
-    public ResponseEntity<Jogador> deletar(@PathVariable UUID idJogador) {
+    public ResponseEntity<Jogador> deletar(@PathVariable Long idJogador) {
         Optional<Jogador> jogadorOptional = jogadorService.buscarPorId(idJogador);
         if (jogadorOptional.isPresent()) {
             jogadorService.deletar(idJogador);

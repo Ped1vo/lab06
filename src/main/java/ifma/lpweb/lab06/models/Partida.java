@@ -7,21 +7,22 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
 @Entity
 @Table(name = "tb_partida")
 public class Partida implements Serializable {
     private static final long serialVersionUID = 1L;
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idPartida;
+    private Long idPartida;
     @NotNull
     private LocalDate data;
     @ManyToOne

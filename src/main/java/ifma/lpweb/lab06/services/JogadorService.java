@@ -25,7 +25,7 @@ public class JogadorService{
         return jogadorRepository.save(jogador);
     }
 
-    public Optional<Jogador> buscarPorId(UUID idJogador) {
+    public Optional<Jogador> buscarPorId(Long idJogador) {
         return jogadorRepository.findById(idJogador);
     }
 
@@ -35,7 +35,7 @@ public class JogadorService{
     }
 
     @Transactional
-    public void deletar(UUID idJogador) {
+    public void deletar(Long idJogador) {
         jogadorRepository.deleteById(idJogador);
     }
 
@@ -55,7 +55,7 @@ public class JogadorService{
         return jogadorRepository.findByNomeContaining(nome, paginacao);
     }
 
-    public boolean naoExisteJogadorCom(UUID idJogador) {
+    public boolean naoExisteJogadorCom(Long idJogador) {
         return !jogadorRepository.existsById(idJogador);
     }
 }

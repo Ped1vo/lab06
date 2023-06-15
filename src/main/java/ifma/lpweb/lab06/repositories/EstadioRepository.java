@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 @Repository
-public interface EstadioRepository extends JpaRepository<Estadio, UUID> {
+public interface EstadioRepository extends JpaRepository<Estadio, Long> {
 }

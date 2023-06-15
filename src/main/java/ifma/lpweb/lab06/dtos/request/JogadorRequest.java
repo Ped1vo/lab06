@@ -1,4 +1,4 @@
-package ifma.lpweb.lab06.dtos.input;
+package ifma.lpweb.lab06.dtos.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -10,6 +10,6 @@ import java.util.UUID;
 @Setter
 public class JogadorRequest {
     @NotNull
-    private UUID idJogador;
+    private Long idJogador;
 
 }

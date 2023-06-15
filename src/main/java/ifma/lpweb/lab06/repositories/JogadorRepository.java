@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 import java.util.UUID;
 @Repository
-public interface JogadorRepository extends JpaRepository<Jogador, UUID> {
-    Optional<Jogador> findById(UUID idJogador);
+public interface JogadorRepository extends JpaRepository<Jogador, Long> {
+    Optional<Jogador> findById(Long idJogador);
 
     Page<Jogador> findByNomeContaining(String nome, Pageable paginacao);
 }

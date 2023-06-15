@@ -7,10 +7,10 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.UUID;
+
 @Data
 @Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,9 +19,10 @@ import java.util.UUID;
 @Table(name = "tb_estadio")
 public class Estadio implements Serializable {
     private static final long serialVersionUID = 1L;
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idEstadio;
+    private Long idEstadio;
     @NotBlank @Size(min = 3, max = 50)
     private String nome;
     @NotNull
