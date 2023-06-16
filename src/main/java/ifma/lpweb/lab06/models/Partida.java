@@ -23,11 +23,11 @@ public class Partida implements Serializable {
     private Date data;
 
     @ManyToOne
-    @JoinColumn(name ="time_mandante_id")
+    @JoinColumn(name = "time_mandante_id")
     private Time timeMandante;
 
     @ManyToOne
-    @JoinColumn(name ="time_visitante_id")
+    @JoinColumn(name = "time_visitante_id")
     private Time timeVisitante;
 
     @ManyToOne

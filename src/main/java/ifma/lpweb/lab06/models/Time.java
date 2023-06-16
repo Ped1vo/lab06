@@ -29,8 +29,11 @@ public class Time implements Serializable {
     @OneToMany(mappedBy="time")
     private List<Jogador> jogadores;
 
-    @OneToMany(mappedBy="time")
-    private List<Partida> partidas;
+    @OneToMany(mappedBy = "timeMandante")
+    private List<Partida> partidasMandante;
+
+    @OneToMany(mappedBy = "timeVisitante")
+    private List<Partida> partidasVisitante;
 
     @ManyToOne
     @JoinColumn(name = "campeonato_id")

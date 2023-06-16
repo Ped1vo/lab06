@@ -15,7 +15,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Optional;
-import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -27,34 +26,34 @@ public class JogadorController {
     public ResponseEntity<Jogador> cadastrar(@Valid @RequestBody Jogador jogador,
                                              UriComponentsBuilder builder) {
         final Object jogadorSalvo = jogadorService.cadastrar(jogador);
-        final URI uri = builder.path("/jogadores/{idJogador}").buildAndExpand(jogador.getIdJogador()).toUri();
+        final URI uri = builder.path("/jogadores/{idJogador}").buildAndExpand(jogador.getId()).toUri();
         return ResponseEntity.created(uri).body((Jogador) jogadorSalvo);
     }
 
-    @GetMapping("/{idJogador}")
-    public ResponseEntity<Jogador> buscarPorId(@PathVariable Long idJogador) {
-        return jogadorService.buscarPorId(idJogador)
+    @GetMapping("/{id}")
+    public ResponseEntity<Jogador> buscarPorId(@PathVariable Long id) {
+        return jogadorService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
 
-    @PutMapping("/{idJogador}")
-    public ResponseEntity<Jogador> atualizar(@PathVariable Long idJogador, @Valid @RequestBody Jogador jogador) {
-        if(jogadorService.naoExisteJogadorCom(idJogador)) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Jogador> atualizar(@PathVariable Long id, @Valid @RequestBody Jogador jogador) {
+        if(jogadorService.naoExisteJogadorCom(id)) {
             return ResponseEntity.notFound().build();
         }else {
-            jogador.setIdJogador(idJogador);
+            jogador.setId(id);
             Jogador jogadorAtualizado = jogadorService.atualizar(jogador);
             return ResponseEntity.ok(jogadorAtualizado);
         }
     }
 
-    @DeleteMapping("/{idJogador}")
-    public ResponseEntity<Jogador> deletar(@PathVariable Long idJogador) {
-        Optional<Jogador> jogadorOptional = jogadorService.buscarPorId(idJogador);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Jogador> deletar(@PathVariable Long id) {
+        Optional<Jogador> jogadorOptional = jogadorService.buscarPorId(id);
         if (jogadorOptional.isPresent()) {
-            jogadorService.deletar(idJogador);
+            jogadorService.deletar(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
