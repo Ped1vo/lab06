@@ -32,7 +32,7 @@ public class Jogador implements Serializable {
     @NotNull
     private String genero;
     @NotNull
-    private double altura;
+    private Double altura;
     @ManyToOne
     private Time time;
 
