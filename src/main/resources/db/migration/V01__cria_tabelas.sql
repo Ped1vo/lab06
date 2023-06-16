@@ -53,4 +53,4 @@ CREATE TABLE tb_time
     vitorias      INT          NOT NULL,
     saldo_gols    INT          NOT NULL,
     campeonato_id BIGINT REFERENCES tb_campeonato (id)
-);
+
