@@ -1,8 +1,7 @@
 package ifma.lpweb.lab06.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 
 import java.io.Serializable;
@@ -23,11 +22,13 @@ public class Partida implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPartida;
-    @NotNull
+    @PastOrPresent
     private LocalDate data;
     @ManyToOne
+    @JoinColumn(name = "campeonato_id")
     private Time time;
     @ManyToOne
+    @JoinColumn(name = "campeonato_id")
     private Campeonato campeonato;
 
 }

@@ -2,7 +2,7 @@ package ifma.lpweb.lab06.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -25,10 +25,7 @@ public class Estadio implements Serializable {
     private Long idEstadio;
     @NotBlank @Size(min = 3, max = 50)
     private String nome;
-    @NotNull
+    @NotBlank
     private String endereco;
-    @OneToOne
-    @JoinColumn(name = "id_time")
-    private Time time;
 
 }

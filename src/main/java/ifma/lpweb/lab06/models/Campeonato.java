@@ -24,7 +24,7 @@ public class Campeonato implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCampeonato;
     @NotNull
-    private int ano;
+    private Integer ano;
     @NotNull
     private String nome;
     @OneToMany(mappedBy = "campeonato")
