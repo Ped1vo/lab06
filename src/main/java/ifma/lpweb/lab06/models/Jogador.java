@@ -1,5 +1,6 @@
 package ifma.lpweb.lab06.models;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
