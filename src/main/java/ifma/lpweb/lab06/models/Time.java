@@ -29,7 +29,7 @@ public class Time implements Serializable {
     private List<Jogador> jogador;
     @OneToMany(mappedBy = "time")
     private List<Partida> partidas;
-    @OneToOne
+    @OneToOne(mappedBy = "time")
     private Estadio estadio;
 
 }

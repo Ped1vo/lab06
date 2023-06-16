@@ -28,6 +28,7 @@ public class Estadio implements Serializable {
     @NotNull
     private String endereco;
     @OneToOne
+    @JoinColumn(name = "id_time")
     private Time time;
 
 }
