@@ -1,5 +1,6 @@
 package ifma.lpweb.lab06.controllers;
 
+import ifma.lpweb.lab06.dtos.CampeonatoDTO;
 import ifma.lpweb.lab06.models.Campeonato;
 import ifma.lpweb.lab06.models.Time;
 import ifma.lpweb.lab06.services.CampeonatoService;
@@ -32,10 +33,17 @@ public class CampeonatoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Campeonato> buscarPorId(@PathVariable Long id) {
-        return campeonatoService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<CampeonatoDTO> buscarPorId(@PathVariable Long id) {
+        Optional<Campeonato> campeonatoOptional = campeonatoService.buscarPorId(id);
+        if (campeonatoOptional.isPresent()) {
+            Campeonato campeonato = campeonatoOptional.get();
+            CampeonatoDTO campeonatoDTO = new CampeonatoDTO();
+            campeonatoDTO.setId(campeonato.getId());
+            campeonatoDTO.setNome(campeonato.getNome());
+            return ResponseEntity.ok(campeonatoDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
