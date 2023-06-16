@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,6 +57,14 @@ public class PartidaService {
 
     public boolean naoExistePartidaCom(Long id) {
         return !partidaRepository.existsById(id);
+    }
+
+    public List<Partida> findPartidaOcorridaByCampeonatoId(Long campeonatoId) {
+        return partidaRepository.findPartidaOcorridaByCampeonatoId(campeonatoId);
+    }
+
+    public List<Partida> findPartidasNaoOcorridasByCampeonatoId(Long campeonatoId) {
+        return partidaRepository.findPartidasNaoOcorridasByCampeonatoId(campeonatoId);
     }
 
 }
