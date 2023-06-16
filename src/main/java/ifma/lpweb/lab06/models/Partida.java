@@ -9,19 +9,16 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
 @Entity
 @Table(name = "tb_partida")
 public class Partida implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date data;
-
     @ManyToOne
     @JoinColumn(name = "time_mandante_id")
     private Time timeMandante;
