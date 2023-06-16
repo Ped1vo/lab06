@@ -19,11 +19,8 @@ public class Time implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String nome;
-
     private int vitorias;
-
     private int saldoGols;
 
     @OneToMany(mappedBy="time")

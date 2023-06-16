@@ -1,6 +1,5 @@
 package ifma.lpweb.lab06.controllers;
 
-import ifma.lpweb.lab06.models.Jogador;
 import ifma.lpweb.lab06.models.Time;
 import ifma.lpweb.lab06.services.TimeService;
 import jakarta.validation.Valid;
@@ -25,7 +24,7 @@ public class TimeController {
     private final TimeService timeService;
 
     @PostMapping
-    public ResponseEntity<Time> cadastrar(@Valid @RequestBody Time time,
+    public ResponseEntity<Time> cadastrar(@RequestBody Time time,
                                           UriComponentsBuilder builder) {
         final Object timeSalvo = timeService.cadastrar(time);
         final URI uri = builder.path("/times/{id}").buildAndExpand(time.getId()).toUri();
@@ -53,8 +52,8 @@ public class TimeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Time> deletar(@PathVariable Long id) {
-        Optional<Time> jogadorOptional = timeService.buscarPorId(id);
-        if (jogadorOptional.isPresent()) {
+        Optional<Time> timeOptional = timeService.buscarPorId(id);
+        if (timeOptional.isPresent()) {
             timeService.deletar(id);
             return ResponseEntity.noContent().build();
         } else {
