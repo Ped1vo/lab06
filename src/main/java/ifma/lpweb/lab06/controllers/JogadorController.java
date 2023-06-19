@@ -1,5 +1,8 @@
 package ifma.lpweb.lab06.controllers;
 
+import ifma.lpweb.lab06.dtos.request.JogadorRequest;
+import ifma.lpweb.lab06.dtos.response.JogadorResponse;
+import ifma.lpweb.lab06.mapper.JogadorMapper;
 import ifma.lpweb.lab06.models.Jogador;
 import ifma.lpweb.lab06.services.JogadorService;
 import jakarta.validation.Valid;
@@ -21,7 +24,86 @@ import java.util.Optional;
 @RequestMapping("/jogadores")
 public class JogadorController {
     private final JogadorService jogadorService;
+    private final JogadorMapper jogadorMapper;
 
+    @PostMapping
+    public ResponseEntity<JogadorResponse> cadastrarJogador(@Valid @RequestBody JogadorRequest jogadorRequest,
+                                                            UriComponentsBuilder builder) {
+        Jogador jogador = jogadorMapper.toJogador(jogadorRequest);
+        Jogador jogadorSalvo = jogadorService.cadastrar(jogador);
+        JogadorResponse jogadorResponse = jogadorMapper.toJogadorResponse(jogadorSalvo);
+
+        URI uri = builder.path("/jogadores/{id}").buildAndExpand(jogadorSalvo.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(jogadorResponse);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<JogadorResponse> buscarPorId(@PathVariable Long id) {
+        Jogador jogador = jogadorService.buscarPorId(id);
+        if (jogador != null) {
+            JogadorResponse jogadorResponse = jogadorMapper.toJogadorResponse(jogador);
+            return ResponseEntity.ok(jogadorResponse);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Jogador> atualizar(@PathVariable Long id, @Valid @RequestBody JogadorRequest jogadorRequest) {
+        if(jogadorService.naoExisteJogadorCom(id)) {
+            return ResponseEntity.notFound().build();
+        } else {
+            Jogador jogador = JogadorMapper.toEntity(jogadorRequest);
+            jogador.setId(id);
+            Jogador jogadorAtualizado = jogadorService.atualizar(jogador);
+            return ResponseEntity.ok(jogadorAtualizado);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (jogadorService.naoExisteJogadorCom(id)) {
+            return ResponseEntity.notFound().build();
+        } else {
+            jogadorService.delete(id);
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<Iterable<JogadorResponse>> listar() {
+        Iterable<Jogador> jogadores = jogadorService.listar();
+        Iterable<JogadorResponse> jogadoresResponse = jogadorMapper.toResponseList(jogadores);
+        return ResponseEntity.ok(jogadoresResponse);
+    }
+
+
+    @GetMapping("pagina/{numeroPagina}/{quantidadePagina}")
+    public Iterable<JogadorResponse> listarPaginado(@PathVariable Integer numeroPagina, @PathVariable Integer quantidadePagina) {
+        if (quantidadePagina > 5) quantidadePagina = 5;
+        PageRequest paginacao = PageRequest.of(numeroPagina, quantidadePagina, Sort.by("nome"));
+        Page<Jogador> jogadoresPaginados = jogadorService.listarPaginado(paginacao);
+        return jogadorMapper.toResponseList(jogadoresPaginados);
+    }
+
+
+    @GetMapping("/paginacao")
+    public Page<JogadorResponse> listarPaginado(@RequestParam(required = false) String nome, @PageableDefault(
+            sort = "nome", direction = Sort.Direction.ASC, page = 0, size = 5) Pageable paginacao){
+        if (nome == null) {
+            Page<Jogador> jogadoresPaginados = jogadorService.listarPaginado(paginacao);
+            return jogadorMapper.toResponsePage(jogadoresPaginados);
+        } else {
+            Page<Jogador> jogadoresPaginadosPorNome = jogadorService.listarPorNome(nome, paginacao);
+            return jogadorMapper.toResponsePage(jogadoresPaginadosPorNome);
+        }
+    }
+
+
+
+
+
+    /*
     @PostMapping
     public ResponseEntity<Jogador> cadastrar(@Valid @RequestBody Jogador jogador,
                                              UriComponentsBuilder builder) {
@@ -84,6 +166,8 @@ public class JogadorController {
             return jogadorService.listarPorNome(nome, paginacao);
         }
     }
+
+     */
 }
 
 

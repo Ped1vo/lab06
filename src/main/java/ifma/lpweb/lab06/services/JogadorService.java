@@ -1,5 +1,6 @@
 package ifma.lpweb.lab06.services;
 
+import ifma.lpweb.lab06.mapper.JogadorMapper;
 import ifma.lpweb.lab06.models.Jogador;
 import ifma.lpweb.lab06.repositories.JogadorRepository;
 import jakarta.transaction.Transactional;
@@ -13,18 +14,23 @@ import java.util.Optional;
 @Service
 public class JogadorService{
     private final JogadorRepository jogadorRepository;
+    private JogadorMapper jogadorMapper;
     @Autowired
     public JogadorService(JogadorRepository jogadorRepository){
         this.jogadorRepository = jogadorRepository;
     }
 
     @Transactional
-    public Object cadastrar(Jogador jogador) {
-        return jogadorRepository.save(jogador);
+    public Jogador cadastrar(Jogador jogador) {
+        // lógica de cadastro do jogador
+        Jogador jogadorSalvo = jogadorRepository.save(jogador);
+        return jogadorSalvo;
     }
 
-    public Optional<Jogador> buscarPorId(Long id) {
-        return jogadorRepository.findById(id);
+    public Jogador buscarPorId(Long id) {
+        // lógica de busca do jogador por id
+        Optional<Jogador> jogadorOptional = jogadorRepository.findById(id);
+        return jogadorOptional.orElse(null);
     }
 
     @Transactional
@@ -55,5 +61,10 @@ public class JogadorService{
 
     public boolean naoExisteJogadorCom(Long id) {
         return !jogadorRepository.existsById(id);
+    }
+
+
+    public void delete(Long id) {
+        jogadorRepository.deleteById(id);
     }
 }

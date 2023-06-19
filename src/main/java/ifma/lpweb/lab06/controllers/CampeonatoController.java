@@ -40,6 +40,7 @@ public class CampeonatoController {
             CampeonatoDTO campeonatoDTO = new CampeonatoDTO();
             campeonatoDTO.setId(campeonato.getId());
             campeonatoDTO.setNome(campeonato.getNome());
+            campeonatoDTO.setAno(campeonato.getAno());
             return ResponseEntity.ok(campeonatoDTO);
         } else {
             return ResponseEntity.notFound().build();

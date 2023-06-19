@@ -7,9 +7,9 @@ import java.util.UUID;
 
 @Data
 public class JogadorResponse {
-    private Long id;
+    private Long idJogador;
     private String nome;
-    private String nascimento;
+    private String dataNascimento;
     private String genero;
     private double altura;
     private String time;
