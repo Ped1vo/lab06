@@ -5,12 +5,10 @@ import ifma.lpweb.lab06.repositories.JogadorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class JogadorService{
@@ -25,8 +23,8 @@ public class JogadorService{
         return jogadorRepository.save(jogador);
     }
 
-    public Optional<Jogador> buscarPorId(Long idJogador) {
-        return jogadorRepository.findById(idJogador);
+    public Optional<Jogador> buscarPorId(Long id) {
+        return jogadorRepository.findById(id);
     }
 
     @Transactional
@@ -35,8 +33,8 @@ public class JogadorService{
     }
 
     @Transactional
-    public void deletar(Long idJogador) {
-        jogadorRepository.deleteById(idJogador);
+    public void deletar(Long id) {
+        jogadorRepository.deleteById(id);
     }
 
     public Iterable<Jogador> listar() {
@@ -55,7 +53,7 @@ public class JogadorService{
         return jogadorRepository.findByNomeContaining(nome, paginacao);
     }
 
-    public boolean naoExisteJogadorCom(Long idJogador) {
-        return !jogadorRepository.existsById(idJogador);
+    public boolean naoExisteJogadorCom(Long id) {
+        return !jogadorRepository.existsById(id);
     }
 }

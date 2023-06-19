@@ -1,49 +1,56 @@
-DROP TABLE IF EXISTS tb_campeonato;
-CREATE TABLE IF NOT EXISTS tb_campeonato
+-- Criação da tabela tb_campeonato
+CREATE TABLE tb_campeonato
 (
-    id_campeonato BIGINT PRIMARY KEY,
-    ano           INTEGER      NOT NULL,
-    nome          VARCHAR(255) NOT NULL
+    id   SERIAL PRIMARY KEY,
+    ano  INT          NOT NULL,
+    nome VARCHAR(255) NOT NULL
 );
 
-DROP TABLE IF EXISTS tb_estadio;
-CREATE TABLE IF NOT EXISTS tb_estadio
+-- Criação da tabela tb_estadio
+CREATE TABLE tb_estadio
 (
-    id_estadio   BIGINT PRIMARY KEY,
-    nome         VARCHAR(50)  NOT NULL,
-    endereco     VARCHAR(255) NOT NULL,
-    time_id_time BIGINT UNIQUE,
-    FOREIGN KEY (time_id_time) REFERENCES tb_time (id_time)
+    id       SERIAL PRIMARY KEY,
+    nome     VARCHAR(255) NOT NULL,
+    endereco VARCHAR(255) NOT NULL
 );
 
-DROP TABLE IF EXISTS tb_jogador;
-CREATE TABLE IF NOT EXISTS tb_jogador
+-- Criação da tabela tb_jogador
+CREATE TABLE tb_jogador
 (
-    id_jogador   BIGINT PRIMARY KEY,
-    nome         VARCHAR(50)      NOT NULL,
-    nascimento   DATE             NOT NULL,
-    genero       VARCHAR(255)     NOT NULL,
-    altura       FLOAT NOT NULL,
-    time_id_time BIGINT,
-    FOREIGN KEY (time_id_time) REFERENCES tb_time (id_time)
+    id              SERIAL PRIMARY KEY,
+    nome            VARCHAR(255)     NOT NULL,
+    data_nascimento VARCHAR(10)      NOT NULL,
+    genero          VARCHAR(255)     NOT NULL,
+    altura          DOUBLE PRECISION NOT NULL,
+    time_id         BIGINT REFERENCES tb_time (id)
 );
 
-DROP TABLE IF EXISTS tb_partida;
-CREATE TABLE IF NOT EXISTS tb_partida
+-- Criação da tabela tb_partida
+CREATE TABLE tb_partida
 (
-    id_partida               BIGINT PRIMARY KEY,
-    data                     DATE NOT NULL,
-    time_id_time             BIGINT,
-    campeonato_id_campeonato BIGINT,
-    FOREIGN KEY (time_id_time) REFERENCES tb_time (id_time),
-    FOREIGN KEY (campeonato_id_campeonato) REFERENCES tb_campeonato (id_campeonato)
+    id                SERIAL PRIMARY KEY,
+    data              DATE NOT NULL,
+    time_mandante_id  BIGINT REFERENCES tb_time (id),
+    time_visitante_id BIGINT REFERENCES tb_time (id),
+    campeonato_id     BIGINT REFERENCES tb_campeonato (id),
+    estadio_id        BIGINT REFERENCES tb_estadio (id)
 );
 
-DROP TABLE IF EXISTS tb_time;
-CREATE TABLE IF NOT EXISTS tb_time
+-- Criação da tabela tb_resultados
+CREATE TABLE tb_resultados
 (
-    id_time            BIGINT PRIMARY KEY,
-    nome               VARCHAR(255) NOT NULL,
-    estadio_id_estadio BIGINT UNIQUE,
-    FOREIGN KEY (estadio_id_estadio) REFERENCES tb_estadio (id_estadio)
+    id                  SERIAL PRIMARY KEY,
+    gols_time_mandante  INT NOT NULL,
+    gols_time_visitante INT NOT NULL,
+    partida_id          BIGINT REFERENCES tb_partida (id)
 );
+
+-- Criação da tabela tb_time
+CREATE TABLE tb_time
+(
+    id            SERIAL PRIMARY KEY,
+    nome          VARCHAR(255) NOT NULL,
+    vitorias      INT          NOT NULL,
+    saldo_gols    INT          NOT NULL,
+    campeonato_id BIGINT REFERENCES tb_campeonato (id)
+

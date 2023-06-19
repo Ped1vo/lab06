@@ -1,6 +1,5 @@
 package ifma.lpweb.lab06.models;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,23 +12,19 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_jogador")
-public class Jogador implements Serializable {
+public class Resultados implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nome;
+    private int golsTimeMandante;
+    private int golsTimeVisitante;
 
-    private String dataNascimento;
+    @OneToOne
+    @JoinColumn(name = "partida_id")
+    private Partida partida;
 
-    private String genero;
-
-    private double altura;
-
-    @ManyToOne
-    @JoinColumn(name ="time_id")
-    private Time time;
 
 }
