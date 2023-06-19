@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -85,5 +86,9 @@ public class TimeController {
         } else {
             return timeService.listarPorNome(nome, paginacao);
         }
+    }
+    @GetMapping("timesporcampeonato/{campeonatoId}")
+    public List<Time> findByCampeonatoId(@PathVariable Long campeonatoId) {
+        return timeService.findByCampeonatoId(campeonatoId);
     }
 }

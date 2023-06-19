@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,4 +58,9 @@ public class TimeService {
     public boolean naoExisteTimeCom(Long id) {
         return !timeRepository.existsById(id);
     }
+
+    public List<Time> findByCampeonatoId(Long campeonatoId) {
+        return timeRepository.findByCampeonatoId(campeonatoId);
+    }
+
 }
