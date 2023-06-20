@@ -1,8 +1,10 @@
 package ifma.lpweb.lab06.dtos;
 
+import ifma.lpweb.lab06.models.Campeonato;
 import ifma.lpweb.lab06.models.Jogador;
 import ifma.lpweb.lab06.models.Partida;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -11,7 +13,11 @@ public class TimeDTO {
     private Long id;
     private String nome;
     private String endereco;
+    private int vitorias;
+    private int saldoGols;
+    private Campeonato campeonato;
     private List<Jogador> jogadores;
     private List<Partida> partidasMandante;
     private List<Partida> partidasVisitante;
+
 }

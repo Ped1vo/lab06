@@ -86,12 +86,12 @@ public class PartidaController {
         }
     }
 
-    @GetMapping("/partidas/ocorridas/{campeonatoId}")
+    @GetMapping("/ocorridas/{campeonatoId}")
     public List<Partida> findPartidaOcorridaByCampeonatoId(@PathVariable Long campeonatoId) {
         return partidaService.findPartidaOcorridaByCampeonatoId(campeonatoId);
     }
 
-    @GetMapping("/partidas/nao-ocorridas/{campeonatoId}")
+    @GetMapping("/nao-ocorridas/{campeonatoId}")
     public List<Partida> findPartidasNaoOcorridasByCampeonatoId(@PathVariable Long campeonatoId) {
         return partidaService.findPartidasNaoOcorridasByCampeonatoId(campeonatoId);
     }
