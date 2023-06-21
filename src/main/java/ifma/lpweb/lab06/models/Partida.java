@@ -1,17 +1,22 @@
 package ifma.lpweb.lab06.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope = Partida.class
+)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Getter
-@Setter
 @Entity
 @Table(name = "tb_partida")
 public class Partida implements Serializable {
@@ -40,4 +45,60 @@ public class Partida implements Serializable {
 
     @OneToOne(mappedBy = "partida", cascade = CascadeType.ALL)
     private Resultados resultado;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public Time getTimeMandante() {
+        return timeMandante;
+    }
+
+    public void setTimeMandante(Time timeMandante) {
+        this.timeMandante = timeMandante;
+    }
+
+    public Time getTimeVisitante() {
+        return timeVisitante;
+    }
+
+    public void setTimeVisitante(Time timeVisitante) {
+        this.timeVisitante = timeVisitante;
+    }
+
+    public Campeonato getCampeonato() {
+        return campeonato;
+    }
+
+    public void setCampeonato(Campeonato campeonato) {
+        this.campeonato = campeonato;
+    }
+
+    public Estadio getEstadio() {
+        return estadio;
+    }
+
+    public void setEstadio(Estadio estadio) {
+        this.estadio = estadio;
+    }
+
+    public Resultados getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(Resultados resultado) {
+        this.resultado = resultado;
+    }
 }

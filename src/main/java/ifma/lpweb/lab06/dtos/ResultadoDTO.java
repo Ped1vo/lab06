@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ResultadoDTO {
     private Long id;
-    private int golsTimeMandante;
-    private int golsTimeVisitante;
+    private Integer golsTimeMandante;
+    private Integer golsTimeVisitante;
     private Partida partida;
 }

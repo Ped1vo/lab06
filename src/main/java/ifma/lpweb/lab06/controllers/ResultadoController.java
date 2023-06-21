@@ -1,8 +1,6 @@
 package ifma.lpweb.lab06.controllers;
 
-import ifma.lpweb.lab06.models.Jogador;
 import ifma.lpweb.lab06.models.Resultados;
-import ifma.lpweb.lab06.services.JogadorService;
 import ifma.lpweb.lab06.services.ResultadoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

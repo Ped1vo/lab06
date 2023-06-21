@@ -20,9 +20,10 @@ public class EstadioService {
         this.estadioRepository = estadioRepository;
     }
 
-    public Object cadastrar(Estadio estadio) {
+    public Estadio cadastrar(Estadio estadio) {
         return estadioRepository.save(estadio);
     }
+
 
     public Optional<Estadio> buscarPorId(Long id) {
         return estadioRepository.findById(id);

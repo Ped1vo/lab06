@@ -47,10 +47,6 @@ public class JogadorService{
         return jogadorRepository.findAll();
     }
 
-    public Iterable<Jogador> listarPaginado(Integer numeroPagina, Integer quantidadePagina) {
-        return jogadorRepository.findAll();
-    }
-
     public Page<Jogador> listarPaginado(Pageable paginacao) {
         return jogadorRepository.findAll(paginacao);
     }

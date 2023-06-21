@@ -25,10 +25,12 @@ public class EstadioController {
     @PostMapping
     public ResponseEntity<Estadio> cadastrar(@Valid @RequestBody Estadio estadio,
                                              UriComponentsBuilder builder) {
-        final Object estadioSalvo = estadioService.cadastrar(estadio);
-        final URI uri = builder.path("/estadios/{id}").buildAndExpand(estadio.getId()).toUri();
-        return ResponseEntity.created(uri).body((Estadio) estadioSalvo);
+        Estadio estadioSalvo = estadioService.cadastrar(estadio);
+        final URI uri = builder.path("/estadios/{id}").buildAndExpand(estadioSalvo.getId()).toUri();
+        return ResponseEntity.created(uri).body(estadioSalvo);
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Estadio> buscarPorId(@PathVariable Long id) {
@@ -40,25 +42,25 @@ public class EstadioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Estadio> atualizar(@PathVariable Long id, @Valid @RequestBody Estadio estadio) {
-        if(estadioService.naoExisteEstadioCom(id)) {
+        if (estadioService.naoExisteEstadioCom(id)) {
             return ResponseEntity.notFound().build();
-        }else {
-            estadio.setId(id);
-            Estadio estadioAtualizado = estadioService.atualizar(estadio);
-            return ResponseEntity.ok(estadioAtualizado);
         }
+        estadio.setId(id);
+        Estadio estadioAtualizado = estadioService.atualizar(estadio);
+        return ResponseEntity.ok(estadioAtualizado);
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Estadio> deletar(@PathVariable Long id) {
-        Optional<Estadio> estadioOptional = estadioService.buscarPorId(id);
-        if (estadioOptional.isPresent()) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        if (estadioService.buscarPorId(id).isPresent()) {
             estadioService.deletar(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @GetMapping
     public ResponseEntity<Iterable<Estadio>> listar() {

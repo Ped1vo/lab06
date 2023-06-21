@@ -12,6 +12,5 @@ import java.util.Optional;
 public interface CampeonatoRepository extends JpaRepository<Campeonato, Long> {
     Optional<Campeonato> findById(Long campeonatoId);
 
-    Page<Campeonato> findByNomeContaining(String nome, Pageable paginacao);
 
 }
